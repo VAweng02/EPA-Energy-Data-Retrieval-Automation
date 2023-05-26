@@ -2,20 +2,13 @@ import requests
 import pandas as pd
 import os
 
-API_KEY = 'xEVrfWsCpdu1fuL8hbJEGvdCddQEDwq1CoUT62Y2'
+API_KEY = 'BTLw2voW2nvbsnfPQsw067XiAd2uJPckePrUKnO7'
 
+# years = [2010, 2011, 2012,2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
 
-facility_ids = [55138, 55241, 55271, 55292]
-                
-# 55138, 55241, 55271, 55292]
+years = [2015]
 
-leave = False
-
-for id in facility_ids:
-
-    years = [2010, 2011, 2012,2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
-
-    for year in years:
+for year in years:
 
         if (year == 2012 or year == 2016 or year == 2020):
             index = [str(year) + '-01-01', str(year) + '-01-15', str(year) + '-01-31', 
@@ -49,7 +42,7 @@ for id in facility_ids:
             parameters = {
                 'api_key': API_KEY,
                 'beginDate': index[i],
-                'facilityId' : id,
+                'facilityId' : 7698,
                 'endDate': index[i+1],
                 'page' : 1,
                 'perPage': 500
@@ -59,10 +52,6 @@ for id in facility_ids:
             streamingResponse = requests.get(streamingUrl, params=parameters)
 
             print("Status code:", streamingResponse.status_code)
-
-            if streamingResponse.status_code == 429:
-                leave = True
-                break
 
             if streamingResponse.status_code == 200:
                 try:
@@ -84,9 +73,6 @@ for id in facility_ids:
 
             i = i + 1
             
-        #--------------------------------------------------------------------------------------------------------
-        if (leave == True):
-            break
         #--------------------------------------------------------------------------------------------------------
 
         # Initialize an empty DataFrame
@@ -113,7 +99,7 @@ for id in facility_ids:
         combined_df = combined_df.drop_duplicates()
 
         # Create a folder to save the combined DataFrame
-        folder_name = str(id)
+        folder_name = str(10)
         os.makedirs(folder_name, exist_ok=True)
 
         # Save the combined DataFrame to a new CSV file
@@ -138,7 +124,3 @@ for id in facility_ids:
                     print("File", filename, "not found.")
             except Exception as e:
                 print("Error occurred while deleting file", filename + ":", str(e))
-    
-
-    if (leave == True):
-            break
