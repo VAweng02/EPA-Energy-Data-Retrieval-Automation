@@ -2,11 +2,13 @@ import requests
 import pandas as pd
 import os
 
-API_KEY = 'BTLw2voW2nvbsnfPQsw067XiAd2uJPckePrUKnO7'
+API_KEY = 'R5YJ6sQx0fek9dn6wyYkUMPRwLvEJ37PCFf0Siw1'
 
 # years = [2010, 2011, 2012,2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
 
-years = [2015]
+years = [2018, 2019, 2020]
+
+idx = 55103
 
 for year in years:
 
@@ -42,7 +44,7 @@ for year in years:
             parameters = {
                 'api_key': API_KEY,
                 'beginDate': index[i],
-                'facilityId' : 7698,
+                'facilityId' : idx,
                 'endDate': index[i+1],
                 'page' : 1,
                 'perPage': 500
@@ -79,7 +81,7 @@ for year in years:
         combined_df = pd.DataFrame()
 
         # Iterate through the file names
-        for i in range(24):
+        for i in range(3):
             filename = 'test' + str(i) + '.csv'
             
             try:
@@ -87,7 +89,8 @@ for year in years:
                 df = pd.read_csv(filename)
                 
                 # Append the DataFrame to the combined DataFrame
-                combined_df = combined_df.append(df, ignore_index=True)
+                # combined_df = combined_df.append(df, ignore_index=True)
+                combined_df = pd.concat([combined_df, df], ignore_index=True)
                 
                 print("File", filename, "appended successfully.")
             except FileNotFoundError:
@@ -99,7 +102,7 @@ for year in years:
         combined_df = combined_df.drop_duplicates()
 
         # Create a folder to save the combined DataFrame
-        folder_name = str(10)
+        folder_name = str(idx)     
         os.makedirs(folder_name, exist_ok=True)
 
         # Save the combined DataFrame to a new CSV file

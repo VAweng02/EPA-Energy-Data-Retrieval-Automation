@@ -2,12 +2,11 @@ import requests
 import pandas as pd
 import os
 
-API_KEY = 'xEVrfWsCpdu1fuL8hbJEGvdCddQEDwq1CoUT62Y2'
+API_KEY = '1NylfIEoqFv27QQCpzeZ5CloN5m37iJcC7IfivG3'
 
+facility_ids = [55328, 56227]
 
-facility_ids = [55138, 55241, 55271, 55292]
-                
-# 55138, 55241, 55271, 55292]
+# 55328, 56227
 
 leave = False
 
@@ -101,7 +100,8 @@ for id in facility_ids:
                 df = pd.read_csv(filename)
                 
                 # Append the DataFrame to the combined DataFrame
-                combined_df = combined_df.append(df, ignore_index=True)
+                # combined_df = combined_df.append(df, ignore_index=True)
+                combined_df = pd.concat([combined_df, df], ignore_index=True)
                 
                 print("File", filename, "appended successfully.")
             except FileNotFoundError:
@@ -121,6 +121,7 @@ for id in facility_ids:
         combined_filepath = os.path.join(folder_name, combined_filename)
         combined_df.to_csv(combined_filepath, index=False)
         print("Combined data saved to", combined_filepath)
+
 
         #--------------------------------------------------------------------------------------------------------
 

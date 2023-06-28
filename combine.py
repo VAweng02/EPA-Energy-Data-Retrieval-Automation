@@ -1,8 +1,7 @@
 import os
 import pandas as pd
 
-
-folders = ['AL']
+folders = ['temp']
 
 for folder in folders:
 
@@ -28,8 +27,8 @@ for folder in folders:
         df = pd.read_csv(file_path)
         
         # Append the DataFrame to the combined_data DataFrame
-        combined_data = combined_data.append(df, ignore_index=True)
+        # combined_data = combined_data.append(df, ignore_index=True)
+        combined_data = pd.concat([combined_data, df], ignore_index=True)
 
     # Save the combined data to a new CSV file
-    combined_data.to_csv(os.path.join(current_directory, 'combined.csv'), index=False)
-
+    combined_data.to_csv(os.path.join(current_directory, 'combined' + folder + '.csv'), index=False)
