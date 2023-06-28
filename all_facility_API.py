@@ -2,20 +2,22 @@ import requests
 import pandas as pd
 import os
 
-API_KEY = '1NylfIEoqFv27QQCpzeZ5CloN5m37iJcC7IfivG3'
+API_KEY = 'API KEY'
 
-facility_ids = [55328, 56227]
+# Populate facility id(s) below
+facility_ids = ['To Fill']
 
-# 55328, 56227
-
-leave = False
+# Exit loop if status code is 429 (optional)
+leave = False 
 
 for id in facility_ids:
 
-    years = [2010, 2011, 2012,2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+    # Populate year(s) below
+    years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
 
     for year in years:
 
+        # Leap year considerations
         if (year == 2012 or year == 2016 or year == 2020):
             index = [str(year) + '-01-01', str(year) + '-01-15', str(year) + '-01-31', 
                     str(year) + '-02-15', str(year) + '-02-29', str(year) + '-03-15', 
@@ -38,7 +40,7 @@ for id in facility_ids:
                     str(year) + '-11-15', str(year) + '-11-30', str(year) + '-12-15', 
                     str(year) + '-12-31']
 
-        #--------------------------------------------------------------------------------------------------------
+        #------------------- API PULL -------------------------------------------------------------------------------------
         i = 0
         while i < 25:
 
@@ -59,6 +61,7 @@ for id in facility_ids:
 
             print("Status code:", streamingResponse.status_code)
 
+            # leave=true when status code is 429 (API key runs out)
             if streamingResponse.status_code == 429:
                 leave = True
                 break
@@ -83,10 +86,12 @@ for id in facility_ids:
 
             i = i + 1
             
-        #--------------------------------------------------------------------------------------------------------
         if (leave == True):
             break
-        #--------------------------------------------------------------------------------------------------------
+
+
+        
+        #-------------------  Removing Duplicates -----------------------------------------------------------------------------------
 
         # Initialize an empty DataFrame
         combined_df = pd.DataFrame()
@@ -123,7 +128,8 @@ for id in facility_ids:
         print("Combined data saved to", combined_filepath)
 
 
-        #--------------------------------------------------------------------------------------------------------
+
+        #-------------------  Deleting Duplicate Datasets ---------------------------------------------------------------------------------
 
         # Iterate through the file names
         for i in range(24):
