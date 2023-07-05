@@ -1,4 +1,4 @@
-# EPA-Energy-Data-Retrieval-Automation
+# EPA Energy Data Retrieval Automation
 This automation project simplifies the retrieval of energy data from the U.S. EPA website. It enables the processing of aggregate data with ease and significantly reduces manual extraction from the site.
 
 
