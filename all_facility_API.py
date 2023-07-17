@@ -2,10 +2,10 @@ import requests
 import pandas as pd
 import os
 
-API_KEY = 'API KEY'
+API_KEY = 'YLClluBS4DJotWC0iBc7HV2b6SxdEcFtSbCu2s5x'
 
 # Populate facility id(s) below
-facility_ids = ['To Fill']
+facility_ids = ['TODO']
 
 # Exit loop if status code is 429 (optional)
 leave = False 
@@ -56,7 +56,7 @@ for id in facility_ids:
                 'perPage': 500
             }
 
-            streamingUrl = "https://api.epa.gov/easey/emissions-mgmt/emissions/apportioned/hourly/by-facility"
+            streamingUrl = "https://api.epa.gov/easey/emissions-mgmt/emissions/apportioned/hourly"
             streamingResponse = requests.get(streamingUrl, params=parameters)
 
             print("Status code:", streamingResponse.status_code)

@@ -1,8 +1,7 @@
 import os
 import pandas as pd
 
-folders = ['1','2','3','4','5','6','7','8','9','10','11','12']
-
+folders = ['temp']
 for folder in folders:
 
     # Get the current directory
@@ -16,6 +15,7 @@ for folder in folders:
 
     # Get the list of CSV files in the folder
     csv_files = [file for file in os.listdir(folder_path) if file.endswith('.csv')]
+    csv_files.sort(key=lambda x: int(x.split("combined")[1].split(".")[0]))
 
     # Create an empty DataFrame to store the combined data
     combined_data = pd.DataFrame()

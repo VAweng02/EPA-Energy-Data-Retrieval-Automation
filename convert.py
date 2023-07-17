@@ -3,7 +3,7 @@ import glob
 import pandas as pd
 
 def convert_xls_to_csv(input_folder, output_file):
-    all_files = glob.glob(os.path.join(input_folder, '**/*.xls'), recursive=True)
+    all_files = glob.glob(os.path.join(input_folder, '*.xls'))
 
     # Initialize an empty DataFrame to store the combined data
     combined_data = pd.DataFrame()
@@ -22,10 +22,10 @@ def convert_xls_to_csv(input_folder, output_file):
     combined_data.to_csv(output_file, index=False)
 
 # Specify the input folder containing the nested folders with XLS files
-input_folder = './TODO'
+input_folder = '/Users/vincentweng/Documents/EPA-Energy-Data-Retrieval-Automation/test'
 
 # Specify the output file path for the combined CSV data
-output_file = 'TODO'
+output_file = '2020.csv'
 
 # Convert XLS files to CSV and combine them
 convert_xls_to_csv(input_folder, output_file)
